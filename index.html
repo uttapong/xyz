@@ -1,23 +1,70 @@
 <html>
-<head>
-  <style>
-  .btn{
-    background-color: #00995F;
-    border: 1px solid #00995F;
-    border-radius: 4px;
-    padding: 8px 14px;
-    display:inline-block;
-    text-decoration: none;
-  text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
-  box-shadow:   inset 0px 0px 0px 2px #fff,1px 1px 1px 0px rgba(50, 50, 50, 0.5);
-  font: 15px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #fff;
-  -webkit-font-smoothing: antialiased;
-  }
 
+<head>
+  <title>MAQE Assignment Test</title>
+  <meta charset="UTF-8">
+  <meta name="author" content="Uttapong Ruangrit: www.uttapong.com">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src='handlebars-v3.0.3.js'></script>
+  <style>
+    .btn {
+      background: #00985e;
+      /* for old browsers */
+      background: linear-gradient(to bottom, #00985e 0%, #007f4e 100%);
+      /* modern browsers*/
+      border: 1px solid #00995F;
+      border-radius: 4px;
+      padding: 8px 14px;
+      display: inline-block;
+      text-decoration: none;
+      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+      box-shadow: inset 0px 0px 0px 2px #fff, 1px 1px 1px 0px rgba(50, 50, 50, 0.5);
+      font: 15px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #fff;
+      -webkit-font-smoothing: antialiased;
+      margin: 2px;
+    }
+
+    .star-fade {
+      opacity: 0.2;
+    }
   </style>
+  <script>
+    $(document).ready(function() {
+
+      $.getJSON("https://raw.githubusercontent.com/maqe/maqe/gh-pages/persons.json", function(data) {
+
+        var source = $("#template").html();
+        var template = Handlebars.compile(source);
+        var html = template(data);
+        $('#js-test').append(html);
+      });
+    });
+  </script>
 </head>
+
 <body>
-  <a class='btn' href="">SCORE &#9733; &#9733; &#9733;</a>
+  <h1>HTML & CSS TEST</h1>
+  <div id="css-test">
+    <a class='btn' href="">SCORE <span>&#9733;</span> <span>&#9733;</span> <span class='star-fade'>&#9733;</span></a>
+    <a class='btn' href="">SCORE <span class='star-fade'>&#9733;</span> <span class='star-fade'>&#9733;</span> <span class='star-fade'>&#9733;</span></a>
+    <a class='btn' href="">SCORE <span>&#9733;</span> <span >&#9733;</span> <span >&#9733;</span></a>
+  </div>
+  <hr />
+  <div id="js-test">
+    <h1>Javascript TEST</h1>
+    <script id="template" type="text/x-handlebars-template">
+      {{#each this}}
+      <li class="person">
+        <img src="{{image}}" />
+        <div class="name">{{firstName}} {{#if nickname}}({{nickname}}){{/if}}</div>
+        <div class="title">{{title}}</div>
+      </li>
+      {{/each}}
+    </script>
+
+  </div>
+
 </body>
+
 </html>
